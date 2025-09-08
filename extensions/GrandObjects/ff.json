@@ -1,0 +1,85 @@
+{
+    "id": "193",
+    "opportunity": "6",
+    "assignees": [
+        {
+            "id": "5",
+            "name": "New 1 1",
+            "url": "http://grandforum.local/index.php/AR:new1.1"
+        },
+        {
+            "id": "4",
+            "name": "User 2 user 2",
+            "url": "http://grandforum.local/index.php/Collaborator:user2.user2"
+        }
+    ],
+    "task": "fffff",
+    "taskType": "",
+    "dueDate": "0000-00-00",
+    "comments": {
+        "5": [
+            {
+                "id": "26",
+                "task_id": "193",
+                "assignee_id": "5",
+                "sender_id": "1",
+                "comment": "bbbb",
+                "status": "active",
+                "created_at": "2025-09-06 21:11:38"
+            }
+        ]
+    },
+    "details": "",
+    "statuses": {
+        "4": "Assigned",
+        "5": "Assigned",
+        "-1": "Assigned"
+    },
+    "isMemberAllowedToEdit": true,
+    "isLeaderAllowedToEdit": true,
+    "isAllowedToEdit": true,
+    "files": {
+        "4": {
+            "id": "2039",
+            "filename": null,
+            "type": null,
+            "assignee": "4",
+            "data": "",
+            "url": "http://grandforum.local/index.php?action=api.limstaskpmm/193/files/2039"
+        },
+        "5": {
+            "id": "2040",
+            "filename": null,
+            "type": null,
+            "assignee": "5",
+            "data": "",
+            "url": "http://grandforum.local/index.php?action=api.limstaskpmm/193/files/2040"
+        },
+        "-1": {
+            "id": "2038",
+            "filename": null,
+            "type": null,
+            "assignee": "-1",
+            "data": "",
+            "url": "http://grandforum.local/index.php?action=api.limstaskpmm/193/files/2038"
+        }
+    },
+    "reviewers": {
+        "4": {
+            "id": "3",
+            "name": "User 3 user 4",
+            "url": "http://grandforum.local/index.php/AR:user3.user4"
+        },
+        "5": {
+            "id": "4",
+            "name": "User 2 user 2",
+            "url": "http://grandforum.local/index.php/Collaborator:user2.user2"
+        },
+        "-1": null
+    },
+    "displayClosedCount": 0,
+    "displayPendingReviewCount": 0,
+    "displayAssignedCount": 2,
+    "isCurrentUserAssignee": false,
+    "isCurrentUserReviewer": false
+}
