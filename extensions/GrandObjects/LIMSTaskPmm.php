@@ -338,7 +338,7 @@ class LIMSTaskPmm extends BackboneModel
                     $assignee, 
                     "Task Created", 
                     "The task <b>{$this->task}</b> has been created. Comments: <b>{$comment}</b>", 
-                    $this->getProject()->getUrl() . "?tab=activity-management", 
+                    $this->getProject()->getUrl() . "?tab=activities", 
                     true
                 );
             }
@@ -543,24 +543,26 @@ class LIMSTaskPmm extends BackboneModel
                     Your work helps us maintain momentum and reach our goals in collaborative, open team science.
                     The insights or data you provided will guide the next steps for our project and benefit fellow team members.
                     Comments: <b>{$comment}</b>", $this->getProject()->getUrl() . "?tab=activity-management", true);
-                } else {
-                    Notification::addNotification($me, $assignee, "Task Updated", "The task <b>{$this->task}</b> has been updated. Comments: <b>{$comment}</b>", $this->getProject()->getUrl() . "?tab=activity-management", true);
+                } elseif (($oldStatus != $newStatus && $newStatus != 'Closed') || !empty($comment)) {
+                    Notification::addNotification($me, $assignee, "Task Updated", "The task <b>{$this->task}</b> has been updated. Comments: <b>{$comment}</b>", $this->getProject()->getUrl() . "?tab=activities", true);
                 }
             }
             // Send email to leader if an assignee left a comment
             $leaders = $this->getProject()->getLeaders();
             $comment = @$_POST['comments'][$me->getId()];
 
-            foreach ($leaders as $leader) {
-                if ($leader->getId() != $me->getId()) {
-                    Notification::addNotification(
-                        $me,
-                        $leader,
-                        "New Comment on Task: <b>{$this->task}</b>",
-                        "Assignee <b>{$me->getNameForForms()}</b> left a comment on the task <b>{$this->task}</b>:<br><b>{$comment}</b>",
-                        $this->getProject()->getUrl() . "?tab=activity-management",
-                        true
-                    );
+            if (!empty($comment)) {
+                foreach ($leaders as $leader) {
+                    if ($leader->getId() != $me->getId()) {
+                        Notification::addNotification(
+                            $me,
+                            $leader,
+                            "New Comment on Task: <b>{$this->task}</b>",
+                            "Assignee <b>{$me->getNameForForms()}</b> left a comment on the task <b>{$this->task}</b>:<br><b>{$comment}</b>",
+                            $this->getProject()->getUrl() . "?tab=activities",
+                            true
+                        );
+                    }
                 }
             }
             
