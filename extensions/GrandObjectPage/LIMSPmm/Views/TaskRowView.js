@@ -12,13 +12,10 @@ var TaskRowView = Backbone.View.extend({
         var isPLAllowed = _.intersection(userRole, [PL, STAFF, MANAGER, ADMIN]).length > 0 ;
         
         this.model.set('isLeaderAllowedToEdit', isPLAllowed);
-
-        if (this.isEditMode) {
-            this.listenTo(this.model, "change:assignees", this.handleAssigneeChange);
-            this.listenTo(this.model, "change:statuses", this.render);
-            this.prepareDisplayState();
-            this.model.startTracking();
-        }
+        this.listenTo(this.model, "change:assignees", this.handleAssigneeChange);
+        this.listenTo(this.model, "change:statuses", this.render);
+        this.prepareDisplayState();
+        this.model.startTracking();
     },
 
     events: {
@@ -29,7 +26,6 @@ var TaskRowView = Backbone.View.extend({
     },
 
     saveTask: function() {
-        if (!this.isEditMode) return null;
         if (this.model.unsavedAttributes() !== false) {
             return this.model.save();
         }
@@ -341,7 +337,12 @@ var TaskRowView = Backbone.View.extend({
 
     changeStatus: function(){
         var changeStatusDialog = $('<div id="change-status-modal"></div>');
-        var view = new LIMSStatusChangeViewPmm({el: changeStatusDialog, model: this.model, isDialog: true, project: this.project});
+        var view = new LIMSStatusChangeViewPmm({
+            el: changeStatusDialog,
+            model: this.model,
+            isDialog: true,
+            project: this.project
+        });
 
         $('body').append(changeStatusDialog);
         
@@ -350,9 +351,8 @@ var TaskRowView = Backbone.View.extend({
             width: 900,
             title: "Change Task Status",
             close: function(){
-                if (view.closeDialog) {
-                    view.closeDialog();
-                }
+                view.revertChanges(); 
+                $(this).dialog('destroy').remove(); 
             }
         });
     },
